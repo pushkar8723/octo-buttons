@@ -1,17 +1,27 @@
 {
-    "plugins": ["eslint-plugin-tsdoc", "tsdoc-require"],
+    "plugins": [
+        "eslint-plugin-tsdoc",
+        "tsdoc-require"
+    ],
     "extends": [
         "airbnb",
         "airbnb-typescript",
-        "plugin:prettier/recommended"
+        "plugin:prettier/recommended",
+        "plugin:storybook/recommended"
     ],
     "rules": {
-        "indent": ["error", 4],
+        "indent": [
+            "error",
+            4
+        ],
         "tsdoc/syntax": "error",
         "tsdoc-require/require": "error"
     },
     "parserOptions": {
         "project": "./tsconfig.json"
     },
-    "ignorePatterns": ["scripts/**.js", "dist/**"]
+    "ignorePatterns": [
+        "scripts/**.js",
+        "dist/**"
+    ]
 }
