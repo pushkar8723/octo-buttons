@@ -47,11 +47,13 @@ const BtnLabel = styled(Base)`
     border-right: 1px solid var(--octo-btn-dark-border, #464e57);
     transition: all 0.2s ease-in-out;
     font-weight: bold;
+    color: var(--octo-btn-dark-label-color, rgb(173, 186, 199));
 
     @media (prefers-color-scheme: light) {
         & {
             background-color: var(--octo-btn-light-highlight, rgb(246, 248, 250));
             border-color: var(--octo-btn-light-border, rgb(208, 215, 222));
+            color: var(--octo-btn-light-label-color, #000);
         }
     }
 `;
@@ -90,6 +92,7 @@ const Btn = styled.a<{ fontSize: number; width: number }>`
     &:focus,
     &:hover {
         outline: 2px solid var(--octo-btn-dark-outline, rgba(255, 255, 255, 0.5));
+        color: var(--octo-btn-dark-color, rgb(173, 186, 199));
     }
 
     @media (prefers-color-scheme: light) {
@@ -102,6 +105,7 @@ const Btn = styled.a<{ fontSize: number; width: number }>`
         &:focus,
         &:hover {
             outline: 2px solid var(--octo-btn-light-outline, rgba(0, 0, 0, 0.2));
+            color: var(--octo-btn-light-color, #000);
         }
     }
 `;

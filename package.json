@@ -1,6 +1,6 @@
 {
   "name": "octo-buttons",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Lightweight github buttons written in react.",
   "main": "dist/index.cjs.js",
   "module": "lib/index.js",
