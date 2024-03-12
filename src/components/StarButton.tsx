@@ -67,8 +67,11 @@ const BtnText = styled(Base)`
 `;
 
 const Icon = styled(Base)`
+    color: var(--octo-btn-dark-label-color, rgb(173, 186, 199));
+
     @media (prefers-color-scheme: light) {
         & {
+            color: var(--octo-btn-light-label-color, #000);
             background-color: var(--octo-btn-light-highlight, rgb(246, 248, 250));
         }
     }
