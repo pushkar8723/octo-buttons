@@ -81,8 +81,6 @@ export default function StarButton(props: StarButtonProps) {
                 {`
                 #${CSS.escape(id)} {
                     display: flex;
-                    justify-content: stretch;
-                    align-items: center;
                     padding: 0;
                     background-color: #333;
                     border: 1px solid #464e57;
