@@ -46,23 +46,21 @@ export default function StarButton(props: StarButtonProps) {
 
     useEffect(() => {
         if (repo) {
-            setStarCount(formatter(219961) || '');
-            setState(State.SUCCESS);
-            // fetch(`https://api.github.com/repos/${repo}`)
-            //     .then((resp) => {
-            //         if (resp.ok) {
-            //             return resp.json();
-            //         }
-            //         throw new Error(`${resp.status} ${resp.statusText}`);
-            //     })
-            //     .then((data: GithubResp) => {
-            //         setStarCount(formatter(data.stargazers_count));
-            //         setState(State.SUCCESS);
-            //     })
-            //     .catch(() => {
-            //         setStarCount('Error');
-            //         setState(State.ERROR);
-            //     });
+            fetch(`https://api.github.com/repos/${repo}`)
+                .then((resp) => {
+                    if (resp.ok) {
+                        return resp.json();
+                    }
+                    throw new Error(`${resp.status} ${resp.statusText}`);
+                })
+                .then((data: GithubResp) => {
+                    setStarCount(formatter(data.stargazers_count));
+                    setState(State.SUCCESS);
+                })
+                .catch(() => {
+                    setStarCount('Error');
+                    setState(State.ERROR);
+                });
         }
     }, [repo]);
 
