@@ -18,6 +18,8 @@ type StarButtonProps = {
     formatter?: (count: number) => string;
     /** Width of the button */
     width?: number;
+    /** Custom CSS for the button */
+    style?: React.CSSProperties;
 } & typeof defaultProps;
 
 /** Default Props */
@@ -25,6 +27,7 @@ const defaultProps = {
     fontSize: 14,
     formatter: defaultFormatter,
     width: 130,
+    style: {},
 };
 
 enum State {
@@ -117,7 +120,7 @@ const Btn = styled.a<{ fontSize: number; width: number }>`
  * Github Star Button Component
  */
 export default function StarButton(props: StarButtonProps) {
-    const { repo, fontSize, formatter, width } = props;
+    const { repo, fontSize, formatter, width, style } = props;
 
     const [state, setState] = useState(State.LOADING);
     const [starCount, setStarCount] = useState('');
@@ -154,7 +157,7 @@ export default function StarButton(props: StarButtonProps) {
     };
 
     return (
-        <Btn href={`https://github.com/${repo}`} target="_blank" type="button" rel="noreferrer noopener" fontSize={fontSize} width={width}>
+        <Btn href={`https://github.com/${repo}`} target="_blank" type="button" rel="noreferrer noopener" fontSize={fontSize} width={width} style={style}>
             <Icon>
                 <Github width={Math.floor(fontSize * 1.5)} height={Math.floor(fontSize * 1.5)} />
             </Icon>
