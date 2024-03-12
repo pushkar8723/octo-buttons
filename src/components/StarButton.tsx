@@ -32,6 +32,10 @@ enum State {
     ERROR,
 }
 
+const cssEscape = (id: string) => {
+    return id.replaceAll(':', '\\:');
+};
+
 /**
  * Github Star Button Component
  */
@@ -79,7 +83,7 @@ export default function StarButton(props: StarButtonProps) {
         <a href={`https://github.com/${repo}`} target="_blank" id={id} type="button" style={styles} rel="noreferrer noopener">
             <style>
                 {`
-                #${CSS.escape(id)} {
+                #${cssEscape(id)} {
                     display: flex;
                     padding: 0;
                     background-color: #333;
@@ -91,40 +95,44 @@ export default function StarButton(props: StarButtonProps) {
                     overflow: hidden;
                     width: ${width}px;
                     text-decoration: none;
+                    transition: all 0.2s ease-in-out;
                 }
 
-                #${CSS.escape(id)} > span {
+                #${cssEscape(id)} > span {
                     padding: 5px;
                     display: flex;
                     align-items: center;
                     background-color: rgb(55, 62, 71);
+                    transition: all 0.2s ease-in-out;
                 }
                 
-                #${CSS.escape(id)} > .btn-label {
+                #${cssEscape(id)} > .btn-label {
                     padding-left: 0;
                     background-color: rgb(55, 62, 71);
                     border-right: 1px solid #464e57;
+                    transition: all 0.2s ease-in-out;
                 }
                 
-                #${CSS.escape(id)} > .btn-text {
+                #${cssEscape(id)} > .btn-text {
                     background-color: transparent;
                     text-align: center;
                     flex: 1;
                     justify-content: center;
+                    transition: all 0.2s ease-in-out;
                 }
 
                 @media (prefers-color-scheme: light) {
-                    #${CSS.escape(id)} {
+                    #${cssEscape(id)} {
                         background-color: #fff;
                         border-color: rgb(208, 215, 222);
                         color: #000;
                     }
 
-                    #${CSS.escape(id)} > span {
+                    #${cssEscape(id)} > span {
                         background-color: rgb(246, 248, 250);
                     }
                     
-                    #${CSS.escape(id)} > .btn-label {
+                    #${cssEscape(id)} > .btn-label {
                         background-color: rgb(246, 248, 250);
                         border-color: rgb(208, 215, 222);
                     }
