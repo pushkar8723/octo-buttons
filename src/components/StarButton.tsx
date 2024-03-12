@@ -46,7 +46,6 @@ const BtnLabel = styled(Base)`
     background-color: var(--octo-btn-dark-highlight, rgb(55, 62, 71));
     border-right: 1px solid var(--octo-btn-dark-border, #464e57);
     transition: all 0.2s ease-in-out;
-    transition-property: boder-color, color, background-color;
     font-weight: bold;
     color: var(--octo-btn-dark-label-color, rgb(173, 186, 199));
 
@@ -91,8 +90,7 @@ const Btn = styled.a<{ fontSize: number; width: number }>`
     width: ${(props) => props.width}px;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
-    transition-property: boder-color, color, background-color;
-    outline: none;
+    outline: 0px solid transparent;
 
     &:focus,
     &:hover {
