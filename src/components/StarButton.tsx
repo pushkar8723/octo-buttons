@@ -1,5 +1,6 @@
-import React, { useEffect, useId, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { GithubResp } from 'types/apidata';
+import styled from 'styled-components';
 import Exclamation from '../icons/Exclamation';
 import Loading from '../icons/Loading';
 import Github from '../icons/Github';
@@ -32,9 +33,64 @@ enum State {
     ERROR,
 }
 
-const cssEscape = (id: string) => {
-    return id.replaceAll(':', '\\:');
-};
+const BtnLabel = styled.span`
+    padding-left: 0;
+    background-color: rgb(55, 62, 71);
+    border-right: 1px solid #464e57;
+    transition: all 0.2s ease-in-out;
+`;
+
+const BtnText = styled.span`
+    background-color: transparent;
+    text-align: center;
+    flex: 1;
+    justify-content: center;
+    transition: all 0.2s ease-in-out;
+`;
+
+const Btn = styled.a<{ fontSize: number; width: number }>`
+    display: flex;
+    padding: 0;
+    background-color: #333;
+    border: 1px solid #464e57;
+    color: rgb(173, 186, 199);
+    border-radius: 0.375rem;
+    font-size: ${(props) => props.fontSize}px;
+    line-height: 1.5;
+    overflow: hidden;
+    width: ${(props) => props.width}px;
+    text-decoration: none;
+    transition: all 0.2s ease-in-out;
+
+    & > span {
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        background-color: rgb(55, 62, 71);
+        transition: all 0.2s ease-in-out;
+    }
+
+    @media (prefers-color-scheme: light) {
+        & {
+            background-color: #fff;
+            border-color: rgb(208, 215, 222);
+            color: #000;
+        }
+
+        & > span {
+            background-color: rgb(246, 248, 250);
+        }
+
+        & > ${BtnLabel} {
+            background-color: rgb(246, 248, 250);
+            border-color: rgb(208, 215, 222);
+        }
+    }
+
+    & > ${BtnText} {
+        background-color: transparent;
+    }
+`;
 
 /**
  * Github Star Button Component
@@ -42,11 +98,8 @@ const cssEscape = (id: string) => {
 export default function StarButton(props: StarButtonProps) {
     const { repo, fontSize, formatter, width } = props;
 
-    const styles: React.CSSProperties = {};
-
     const [state, setState] = useState(State.LOADING);
     const [starCount, setStarCount] = useState('');
-    const id = useId();
 
     useEffect(() => {
         if (repo) {
@@ -80,71 +133,13 @@ export default function StarButton(props: StarButtonProps) {
     };
 
     return (
-        <a href={`https://github.com/${repo}`} target="_blank" id={id} type="button" style={styles} rel="noreferrer noopener">
-            <style>
-                {`
-                #${cssEscape(id)} {
-                    display: flex;
-                    padding: 0;
-                    background-color: #333;
-                    border: 1px solid #464e57;
-                    color: rgb(173, 186, 199);
-                    border-radius: 0.375rem;
-                    font-size: ${fontSize}px;
-                    line-height: 1.5;
-                    overflow: hidden;
-                    width: ${width}px;
-                    text-decoration: none;
-                    transition: all 0.2s ease-in-out;
-                }
-
-                #${cssEscape(id)} > span {
-                    padding: 5px;
-                    display: flex;
-                    align-items: center;
-                    background-color: rgb(55, 62, 71);
-                    transition: all 0.2s ease-in-out;
-                }
-                
-                #${cssEscape(id)} > .btn-label {
-                    padding-left: 0;
-                    background-color: rgb(55, 62, 71);
-                    border-right: 1px solid #464e57;
-                    transition: all 0.2s ease-in-out;
-                }
-                
-                #${cssEscape(id)} > .btn-text {
-                    background-color: transparent;
-                    text-align: center;
-                    flex: 1;
-                    justify-content: center;
-                    transition: all 0.2s ease-in-out;
-                }
-
-                @media (prefers-color-scheme: light) {
-                    #${cssEscape(id)} {
-                        background-color: #fff;
-                        border-color: rgb(208, 215, 222);
-                        color: #000;
-                    }
-
-                    #${cssEscape(id)} > span {
-                        background-color: rgb(246, 248, 250);
-                    }
-                    
-                    #${cssEscape(id)} > .btn-label {
-                        background-color: rgb(246, 248, 250);
-                        border-color: rgb(208, 215, 222);
-                    }
-                }
-                `}
-            </style>
-            <span className="btn-icon">
+        <Btn href={`https://github.com/${repo}`} target="_blank" type="button" rel="noreferrer noopener" fontSize={fontSize} width={width}>
+            <span>
                 <Github width={Math.floor(fontSize * 1.5)} height={Math.floor(fontSize * 1.5)} />
             </span>
-            <span className="btn-label">Star</span>
-            <span className="btn-text">{renderCount(starCount, state)}</span>
-        </a>
+            <BtnLabel>Star</BtnLabel>
+            <BtnText>{renderCount(starCount, state)}</BtnText>
+        </Btn>
     );
 }
 
