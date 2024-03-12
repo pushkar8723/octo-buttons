@@ -33,14 +33,30 @@ enum State {
     ERROR,
 }
 
-const BtnLabel = styled.span`
-    padding-left: 0;
-    background-color: rgb(55, 62, 71);
-    border-right: 1px solid #464e57;
+const Base = styled.span`
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    background-color: var(--octo-btn-dark-highlight, rgb(55, 62, 71));
     transition: all 0.2s ease-in-out;
 `;
 
-const BtnText = styled.span`
+const BtnLabel = styled(Base)`
+    padding-left: 0;
+    background-color: var(--octo-btn-dark-highlight, rgb(55, 62, 71));
+    border-right: 1px solid var(--octo-btn-dark-border, #464e57);
+    transition: all 0.2s ease-in-out;
+    font-weight: bold;
+
+    @media (prefers-color-scheme: light) {
+        & {
+            background-color: var(--octo-btn-light-highlight, rgb(246, 248, 250));
+            border-color: var(--octo-btn-light-border, rgb(208, 215, 222));
+        }
+    }
+`;
+
+const BtnText = styled(Base)`
     background-color: transparent;
     text-align: center;
     flex: 1;
@@ -48,12 +64,20 @@ const BtnText = styled.span`
     transition: all 0.2s ease-in-out;
 `;
 
+const Icon = styled(Base)`
+    @media (prefers-color-scheme: light) {
+        & {
+            background-color: var(--octo-btn-light-highlight, rgb(246, 248, 250));
+        }
+    }
+`;
+
 const Btn = styled.a<{ fontSize: number; width: number }>`
     display: flex;
     padding: 0;
-    background-color: #333;
-    border: 1px solid #464e57;
-    color: rgb(173, 186, 199);
+    background-color: var(--octo-btn-dark-bg, #333);
+    border: 1px solid var(--octo-btn-dark-border, #464e57);
+    color: var(--octo-btn-dark-color, rgb(173, 186, 199));
     border-radius: 0.375rem;
     font-size: ${(props) => props.fontSize}px;
     line-height: 1.5;
@@ -61,34 +85,24 @@ const Btn = styled.a<{ fontSize: number; width: number }>`
     width: ${(props) => props.width}px;
     text-decoration: none;
     transition: all 0.2s ease-in-out;
+    outline: none;
 
-    & > span {
-        padding: 5px;
-        display: flex;
-        align-items: center;
-        background-color: rgb(55, 62, 71);
-        transition: all 0.2s ease-in-out;
+    &:focus,
+    &:hover {
+        outline: 2px solid var(--octo-btn-dark-outline, rgba(255, 255, 255, 0.5));
     }
 
     @media (prefers-color-scheme: light) {
         & {
-            background-color: #fff;
-            border-color: rgb(208, 215, 222);
-            color: #000;
+            background-color: var(--octo-btn-light-bg, #fff);
+            border-color: var(--octo-btn-light-border, rgb(208, 215, 222));
+            color: var(--octo-btn-light-color, #000);
         }
 
-        & > span {
-            background-color: rgb(246, 248, 250);
+        &:focus,
+        &:hover {
+            outline: 2px solid var(--octo-btn-light-outline, rgba(0, 0, 0, 0.2));
         }
-
-        & > ${BtnLabel} {
-            background-color: rgb(246, 248, 250);
-            border-color: rgb(208, 215, 222);
-        }
-    }
-
-    & > ${BtnText} {
-        background-color: transparent;
     }
 `;
 
@@ -134,9 +148,9 @@ export default function StarButton(props: StarButtonProps) {
 
     return (
         <Btn href={`https://github.com/${repo}`} target="_blank" type="button" rel="noreferrer noopener" fontSize={fontSize} width={width}>
-            <span>
+            <Icon>
                 <Github width={Math.floor(fontSize * 1.5)} height={Math.floor(fontSize * 1.5)} />
-            </span>
+            </Icon>
             <BtnLabel>Star</BtnLabel>
             <BtnText>{renderCount(starCount, state)}</BtnText>
         </Btn>
